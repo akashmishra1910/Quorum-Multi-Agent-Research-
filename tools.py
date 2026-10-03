@@ -72,7 +72,7 @@ def scrape_webpage(url: str) -> str:
             strip=True
         )
 
-        return text[:3000]
+        return text[:2000]
 
     except requests.RequestException as e:
         return f"Error fetching webpage: {e}"
