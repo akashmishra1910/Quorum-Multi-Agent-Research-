@@ -41,7 +41,7 @@ llm = ChatGroq(
 
 def build_search_agent():
     return create_agent(
-        model=fast_llm,
+        model=llm,
         tools=[web_search],
         system_prompt="""
 You are a research search agent.
@@ -66,7 +66,7 @@ Do not repeat information.
 
 def build_reader_agent():
     return create_agent(
-        model=fast_llm,
+        model=llm,
         tools=[scrape_webpage],
         system_prompt="""
 You are a web-reading agent.
@@ -172,4 +172,4 @@ One line verdict:
     )
 ])
 
-critic_chain = critic_prompt | fast_llm | StrOutputParser()
+critic_chain = critic_prompt | llm | StrOutputParser()
