@@ -18,26 +18,25 @@ tavily = TavilyClient(
 
 @tool
 def web_search(query: str) -> str:
-    """Search the web for recent and reliable information on a topic.
-    Return titles, URLs and snippets."""
+    """Search the web for recent and reliable information."""
 
     results = tavily.search(
         query=query,
         max_results=3
     )
 
-    out = []
+    output = []
 
     for result in results["results"]:
-        out.append(
-            f"Title: {result['title']}\n"
-            f"URL: {result['url']}\n"
-            f"Snippet: {result['content']}\n"
+        output.append(
+            f"""
+Title: {result['title']}
+URL: {result['url']}
+Snippet: {result['content'][:700]}
+"""
         )
 
-    return "\n".join(out)
-
-
+    return "\n".join(output)
 # --------------------------------
 # TOOL 2: WEB SCRAPER
 # --------------------------------
