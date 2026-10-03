@@ -32,7 +32,7 @@ def web_search(query: str) -> str:
             f"""
 Title: {result['title']}
 URL: {result['url']}
-Snippet: {result['content'][:700]}
+Snippet: {result['content'][:500]}
 """
         )
 
@@ -72,7 +72,7 @@ def scrape_webpage(url: str) -> str:
             strip=True
         )
 
-        return text[:2000]
+        return text[:2500]
 
     except requests.RequestException as e:
         return f"Error fetching webpage: {e}"

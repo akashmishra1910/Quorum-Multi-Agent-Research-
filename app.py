@@ -256,7 +256,7 @@ def run_pipeline(topic: str, steps_ph) -> dict:
                     "user",
                     f"Based on the following search results about '{topic}', pick the most "
                     "relevant URL and scrape it for deeper content.\n\n"
-                    f"Search Results:\n{results['search'][:2500]}",
+                    f"Search Results:\n{results['search'][:1500]}",
                 )
             ]
         }
