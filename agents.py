@@ -23,6 +23,7 @@ if not GROQ_API_KEY:
 fast_llm = ChatGroq(
     model="openai/gpt-oss-20b",
     temperature=0,
+    max_tokens=1500,
     api_key=GROQ_API_KEY,
 )
 
