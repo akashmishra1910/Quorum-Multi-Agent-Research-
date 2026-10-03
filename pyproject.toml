@@ -1,0 +1,32 @@
+[project]
+name = "multi-agent-system"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Akash Mishra", email = "akashmishra1910@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "beautifulsoup4>=4.15.0",
+    "langchain>=1.4.3",
+    "langchain-community>=0.4.2",
+    "langchain-core>=1.6.6",
+    "langchain-groq>=1.1.3",
+    "langchain-tavily>=0.2.18",
+    "langgraph>=1.2.12",
+    "lxml>=6.1.3",
+    "pydantic>=2.13.5",
+    "python-dotenv>=1.2.4",
+    "requests>=2.34.2",
+    "rich>=15.0.0",
+    "streamlit>=1.64.0",
+    "tavily-python>=0.8.4",
+]
+
+[project.scripts]
+multi-agent-system = "multi_agent_system:main"
+
+[build-system]
+requires = ["uv_build>=0.12.1,<0.13.0"]
+build-backend = "uv_build"

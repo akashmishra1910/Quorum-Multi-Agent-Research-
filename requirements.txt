@@ -1,0 +1,25 @@
+# Core LangChain
+langchain
+langchain-core
+langchain-community
+
+# Groq LLM
+langchain-groq
+
+# Agent / ReAct orchestration
+langgraph
+
+# Tavily web search
+langchain-tavily
+tavily-python
+
+# BeautifulSoup web scraping
+beautifulsoup4
+requests
+lxml
+
+# Environment variables
+python-dotenv
+
+# Data validation
+pydantic
