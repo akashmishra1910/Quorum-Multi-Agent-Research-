@@ -2,24 +2,60 @@ from langchain.agents import create_agent
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from tools import web_search,scrape_webpage
+from tools import web_search, scrape_webpage
+
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
-fast_llm = ChatGroq(model="openai/gpt-oss-20b", temperature=0)
-llm = ChatGroq(model="openai/gpt-oss-120b", temperature=0, reasoning_effort="low")
-#first agent
+
+# Get Groq API key
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+
+if not GROQ_API_KEY:
+    raise RuntimeError("GROQ_API_KEY is not configured.")
+
+# Fast model for search, reader and critic
+fast_llm = ChatGroq(
+    model="openai/gpt-oss-20b",
+    temperature=0,
+    api_key=GROQ_API_KEY,
+)
+
+# Main model for report writing
+llm = ChatGroq(
+    model="openai/gpt-oss-120b",
+    temperature=0,
+    reasoning_effort="low",
+    api_key=GROQ_API_KEY,
+)
+
+
+# --------------------------------------------------
+# FIRST AGENT — SEARCH AGENT
+# --------------------------------------------------
+
 def build_search_agent():
     return create_agent(
-    model=fast_llm,
-    tools=[web_search]
+        model=fast_llm,
+        tools=[web_search],
     )
-#second agent-reader agent
+
+
+# --------------------------------------------------
+# SECOND AGENT — READER AGENT
+# --------------------------------------------------
+
 def build_reader_agent():
     return create_agent(
         model=fast_llm,
-        tools=[scrape_webpage]
+        tools=[scrape_webpage],
     )
+
+
+# --------------------------------------------------
+# WRITER CHAIN
+# --------------------------------------------------
 
 writer_prompt = ChatPromptTemplate.from_messages([
     (
@@ -49,8 +85,10 @@ Be detailed, factual, and professional."""
 
 writer_chain = writer_prompt | llm | StrOutputParser()
 
-#critic chain
- # Critic chain
+
+# --------------------------------------------------
+# CRITIC CHAIN
+# --------------------------------------------------
 
 critic_prompt = ChatPromptTemplate.from_messages([
     (
@@ -82,4 +120,5 @@ One line verdict:
 """
     )
 ])
+
 critic_chain = critic_prompt | fast_llm | StrOutputParser()
